@@ -8,6 +8,6 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   app.use(cookieParser());
   app.enableCors({origin:"http://localhost:3000",credentials:true})
-  await app.listen(configService.get('port'));
+  await app.listen(configService.get('port'),'0.0.0.0');
 }
 bootstrap();
