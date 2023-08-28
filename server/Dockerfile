@@ -15,6 +15,3 @@ ENV POSTGRES_PASSWORD password
 
 # Expose the required port for the PostgreSQL service
 EXPOSE 5432
-
-# Create a volume for PostgreSQL data storage
-VOLUME /var/lib/postgresql/data
