@@ -1,0 +1,27 @@
+.form-content-container{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    font-family: Akshar;
+    font-weight: 600;
+   
+    .form-text{
+    
+        font-size: 30px;
+    }
+    
+    .form-input{
+        font-size: 30px;
+        height: 40px;
+        border-radius: 6px;
+    }
+    
+    .form-confirm-btn{
+        margin-top: 20px;
+        border-radius: 6px;
+        font-family: Akshar;
+        font-weight: 400;
+        font-size: 30px;
+        height: 50px;
+    }
+}
