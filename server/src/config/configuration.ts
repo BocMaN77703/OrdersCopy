@@ -8,4 +8,6 @@ export default ()=>({
     isPublicKey: process.env.IS_PUBLIC_KEY,
     redis_host:process.env.REDIS_HOST,
     redis_port:process.env.REDIS_PORT,
+    client_host:process.env.CLIENT_HOST,
+    client_port:process.env.CLIENT_PORT,
 })
