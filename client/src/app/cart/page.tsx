@@ -16,7 +16,7 @@ const page: FC = () => {
   const [address, setAddress] = useState("");
 
   const host = process.env.HOST;
-  const port = process.env.PORT;
+  const port = process.env.SERVER_PORT;
 
   useEffect(() => {
     axios
@@ -43,7 +43,7 @@ const page: FC = () => {
   };
 
   const deleteItem = (itemId: number) => {
-    axios.post("http://localhost:3003/cart/deleteItem", {
+    axios.post(`http://${host}:${port}/cart/deleteItem`, {
       cartId: cartId,
       itemId: itemId,
     });

@@ -9,7 +9,7 @@ export default function ConfirmedOrders() {
   const { hasAccessToken, setHasAccessToken } = useGlobalContext();
 
   const host = process.env.HOST;
-  const port = process.env.PORT;
+  const port = process.env.SERVER_PORT;
 
   useEffect(() => {
     axios

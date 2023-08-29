@@ -8,7 +8,7 @@ const Orders = () => {
   const { hasAccessToken, setHasAccessToken } = useGlobalContext();
   const [orders, setOrders] = useState([]);
   const host = process.env.HOST;
-  const port = process.env.PORT;
+  const port = process.env.SERVER_PORT;
   useEffect(() => {
     axios
       .get(`http://${host}:${port}/auth/checkTokens`, { withCredentials: true })
