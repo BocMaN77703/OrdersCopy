@@ -8,14 +8,17 @@ export default function ConfirmedOrders() {
   const [orders, setOrders] = useState([]);
   const { hasAccessToken, setHasAccessToken } = useGlobalContext();
 
+  const host = process.env.HOST;
+  const port = process.env.PORT;
+
   useEffect(() => {
     axios
-      .get("http://localhost:3003/auth/checkTokens", { withCredentials: true })
+      .get(`http://${host}:${port}/auth/checkTokens`, { withCredentials: true })
       .then((res) => {
         setHasAccessToken(res.data);
         if (res.data == true)
           axios
-            .get("http://localhost:3003/orders/getConfirmedOrders", {
+            .get(`http://${host}:${port}/orders/getConfirmedOrders`, {
               withCredentials: true,
             })
             .then((res) => setOrders(res.data))

@@ -15,16 +15,19 @@ const page: FC = () => {
   const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
 
+  const host = process.env.HOST;
+  const port = process.env.PORT;
+
   useEffect(() => {
     axios
-      .get(`http://localhost:3003/cart/getProducts/${cartId}`)
+      .get(`http://${host}:${port}/cart/getProducts/${cartId}`)
       .then((res) => {
         setProducts(res.data);
       });
   }, [products]);
 
   const incCount = (itemId: number, count: number) => {
-    axios.put(`http://localhost:3003/cart/updateItemCount`, {
+    axios.put(`http://${host}:${port}/cart/updateItemCount`, {
       cartId: cartId,
       itemId: itemId,
       count: count + 1,
@@ -32,7 +35,7 @@ const page: FC = () => {
   };
 
   const decCount = (itemId: number, count: number) => {
-    axios.put(`http://localhost:3003/cart/updateItemCount`, {
+    axios.put(`http://${host}:${port}/cart/updateItemCount`, {
       cartId: cartId,
       itemId: itemId,
       count: count - 1,
@@ -51,7 +54,7 @@ const page: FC = () => {
   };
 
   const confirmOrderInfo = () => {
-    axios.post(`http://localhost:3003/orders/createOrder/${cartId}`, {
+    axios.post(`http://${host}:${port}/orders/createOrder/${cartId}`, {
       name: name,
       last_name: lastName,
       address: address,

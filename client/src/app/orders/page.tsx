@@ -7,15 +7,16 @@ import "../../styles/css/style.css";
 const Orders = () => {
   const { hasAccessToken, setHasAccessToken } = useGlobalContext();
   const [orders, setOrders] = useState([]);
-
+  const host = process.env.HOST;
+  const port = process.env.PORT;
   useEffect(() => {
     axios
-      .get("http://localhost:3003/auth/checkTokens", { withCredentials: true })
+      .get(`http://${host}:${port}/auth/checkTokens`, { withCredentials: true })
       .then((res) => {
         setHasAccessToken(res.data);
         if (res.data == true)
           axios
-            .get("http://localhost:3003/orders/getInitializedOrders", {
+            .get(`http://${host}:${port}/orders/getInitializedOrders`, {
               withCredentials: true,
             })
             .then((res) => setOrders(res.data))
@@ -25,7 +26,7 @@ const Orders = () => {
 
   const confirmOrder = (orderId: number) => {
     axios.post(
-      `http://localhost:3003/orders/confirmOrder/${orderId}`,
+      `http://${host}:${port}/orders/confirmOrder/${orderId}`,
       {},
       {
         withCredentials: true,
