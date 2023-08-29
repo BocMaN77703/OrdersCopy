@@ -13,7 +13,6 @@ export class OrdersConsumer {
 
   @OnQueueCompleted()
   async onCompleted(job: Job,result:any) {
-    console.log(job.data);
     await this.db.orders.update({
       where: { id: job.data.data.id },
       data: {status:'processed'},

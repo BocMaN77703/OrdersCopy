@@ -6,4 +6,6 @@ export default ()=>({
     refreshSecret: process.env.JWT_REFRESH_SECRET,
     refreshExpiresIn: process.env.JWT_REFRESH_TOKEN_EXPIRATION_TIME,
     isPublicKey: process.env.IS_PUBLIC_KEY,
+    redis_host:process.env.REDIS_HOST,
+    redis_port:process.env.REDIS_PORT,
 })
