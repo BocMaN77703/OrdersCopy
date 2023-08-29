@@ -11,12 +11,12 @@ const Orders = () => {
   const port = process.env.SERVER_PORT;
   useEffect(() => {
     axios
-      .get(`http://${host}:${port}/auth/checkTokens`, { withCredentials: true })
+      .get(`${host}/auth/checkTokens`, { withCredentials: true })
       .then((res) => {
         setHasAccessToken(res.data);
         if (res.data == true)
           axios
-            .get(`http://${host}:${port}/orders/getInitializedOrders`, {
+            .get(`${host}/orders/getInitializedOrders`, {
               withCredentials: true,
             })
             .then((res) => setOrders(res.data))
@@ -26,7 +26,7 @@ const Orders = () => {
 
   const confirmOrder = (orderId: number) => {
     axios.post(
-      `http://${host}:${port}/orders/confirmOrder/${orderId}`,
+      `${host}/orders/confirmOrder/${orderId}`,
       {},
       {
         withCredentials: true,

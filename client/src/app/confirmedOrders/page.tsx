@@ -13,12 +13,12 @@ export default function ConfirmedOrders() {
 
   useEffect(() => {
     axios
-      .get(`http://${host}:${port}/auth/checkTokens`, { withCredentials: true })
+      .get(`${host}/auth/checkTokens`, { withCredentials: true })
       .then((res) => {
         setHasAccessToken(res.data);
         if (res.data == true)
           axios
-            .get(`http://${host}:${port}/orders/getConfirmedOrders`, {
+            .get(`${host}/orders/getConfirmedOrders`, {
               withCredentials: true,
             })
             .then((res) => setOrders(res.data))

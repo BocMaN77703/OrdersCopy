@@ -20,14 +20,14 @@ const page: FC = () => {
 
   useEffect(() => {
     axios
-      .get(`http://${host}:${port}/cart/getProducts/${cartId}`)
+      .get(`${host}/cart/getProducts/${cartId}`)
       .then((res) => {
         setProducts(res.data);
       });
   }, [products]);
 
   const incCount = (itemId: number, count: number) => {
-    axios.put(`http://${host}:${port}/cart/updateItemCount`, {
+    axios.put(`${host}/cart/updateItemCount`, {
       cartId: cartId,
       itemId: itemId,
       count: count + 1,
@@ -35,7 +35,7 @@ const page: FC = () => {
   };
 
   const decCount = (itemId: number, count: number) => {
-    axios.put(`http://${host}:${port}/cart/updateItemCount`, {
+    axios.put(`${host}/cart/updateItemCount`, {
       cartId: cartId,
       itemId: itemId,
       count: count - 1,
@@ -43,7 +43,7 @@ const page: FC = () => {
   };
 
   const deleteItem = (itemId: number) => {
-    axios.post(`http://${host}:${port}/cart/deleteItem`, {
+    axios.post(`${host}/cart/deleteItem`, {
       cartId: cartId,
       itemId: itemId,
     });
@@ -54,7 +54,7 @@ const page: FC = () => {
   };
 
   const confirmOrderInfo = () => {
-    axios.post(`http://${host}:${port}/orders/createOrder/${cartId}`, {
+    axios.post(`${host}/orders/createOrder/${cartId}`, {
       name: name,
       last_name: lastName,
       address: address,

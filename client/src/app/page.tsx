@@ -15,16 +15,16 @@ const Home = () => {
   const port = process.env.SERVER_PORT;
   const buyProduct = (itemId: number) => {
     if (cartId == 0) {
-      axios.post(`http://${host}:${port}/cart/create`).then((res) => {
+      axios.post(`${host}/cart/create`).then((res) => {
         setCartId(res.data.id);
-        axios.post(`http://${host}:${port}/cart/addProduct`, {
+        axios.post(`${host}/cart/addProduct`, {
           cartId: res.data.id,
           itemId: itemId,
           count: 1,
         });
       });
     } else {
-      const res2 = axios.post(`http://${host}:${port}/cart/addProduct`, {
+      const res2 = axios.post(`${host}/cart/addProduct`, {
         cartId: cartId,
         itemId: itemId,
         count: 1,
@@ -33,7 +33,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    axios.get(`http://${host}:${port}/getAllProducts`).then((res) => {
+    axios.get(`${host}/getAllProducts`).then((res) => {
       setProducts(res.data);
     });
   }, [products]);
