@@ -2,7 +2,7 @@
 const nextConfig = {
     env: {
         HOST : process.env.HOST,
-        PORT : process.env.PORT,
+        SERVER_PORT : process.env.SERVER_PORT || 3003,
     },
 }
 
