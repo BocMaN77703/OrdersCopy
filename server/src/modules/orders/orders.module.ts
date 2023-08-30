@@ -16,6 +16,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         redis: {
           host: configService.get('redis_host'),
           port: configService.get('redis_port'),
+          username:configService.get('redis_user'),
+          password:configService.get('redis_password'),
+          
         },
       }),
       inject: [ConfigService],

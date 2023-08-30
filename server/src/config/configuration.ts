@@ -10,4 +10,6 @@ export default ()=>({
     redis_port:process.env.REDIS_PORT,
     client_host:process.env.CLIENT_HOST,
     client_port:process.env.CLIENT_PORT,
+    redis_password:process.env.REDISPASSWORD,
+    redis_user:process.env.REDISUSER,
 })
