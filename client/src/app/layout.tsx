@@ -15,10 +15,12 @@ export default function RootLayout({
   const router = useRouter();
   const pathName = usePathname();
 
+  const host = process.env.HOST;
+
   const login = () => {
     axios
       .post(
-        `http://localhost:3003/auth/login/${code}`,
+        `${host}/auth/login/${code}`,
         {},
         { withCredentials: true }
       )
@@ -29,7 +31,7 @@ export default function RootLayout({
 
   const logout = () => {
     axios.post(
-      `http://localhost:3003/auth/log-out/`,
+      `${host}/auth/log-out/`,
       {},
       { withCredentials: true }
     );
