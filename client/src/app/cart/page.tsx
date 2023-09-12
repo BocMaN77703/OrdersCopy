@@ -18,13 +18,11 @@ const page: FC = () => {
   const host = process.env.HOST;
   const port = process.env.SERVER_PORT;
 
-  useEffect(() => {
-    axios
-      .get(`${host}/cart/getProducts/${cartId}`)
-      .then((res) => {
-        setProducts(res.data);
-      });
-  }, []);
+  const getProducts = () => {
+    axios.get(`${host}/cart/getProducts/${cartId}`).then((res) => {
+      setProducts(res.data);
+    });
+  };
 
   const incCount = (itemId: number, count: number) => {
     axios.put(`${host}/cart/updateItemCount`, {
@@ -32,6 +30,10 @@ const page: FC = () => {
       itemId: itemId,
       count: count + 1,
     });
+    const updatedProducts = products.map((item) =>
+      item.id === itemId ? { ...item, count: count + 1 } : item
+    );
+    setProducts(updatedProducts);
   };
 
   const decCount = (itemId: number, count: number) => {
@@ -40,6 +42,10 @@ const page: FC = () => {
       itemId: itemId,
       count: count - 1,
     });
+    const updatedProducts = products.map((item) =>
+      item.id === itemId ? { ...item, count: count - 1 } : item
+    );
+    setProducts(updatedProducts);
   };
 
   const deleteItem = (itemId: number) => {
@@ -47,6 +53,8 @@ const page: FC = () => {
       cartId: cartId,
       itemId: itemId,
     });
+    const updatedProducts = products.filter((item) => item.id !== itemId);
+    setProducts(updatedProducts);
   };
 
   const openModal = () => {
@@ -60,7 +68,15 @@ const page: FC = () => {
       address: address,
     });
     setModalActive(false);
+    setName("");
+    setLastName("");
+    setAddress("");
+    setProducts([]);
   };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
 
   const router = useRouter();
   return (
