@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext,useContext,Dispatch,SetStateAction,useState,ReactNode } from "react";
-
+import { useCookies } from "react-cookie";
 type CartType = {
     cartId: number
 }
@@ -21,7 +21,8 @@ const GlobalContext = createContext<ContextProps>({
 })
 
 export const GlobalContextProvider = ({children}:{children:ReactNode}) =>{
-    const [cartId,setCartId] = useState(0)
+    const [cookies, setCookie, removeCookie] = useCookies(["cartId"]);
+    const [cartId,setCartId] = useState( cookies.cartId? parseInt(cookies.cartId):0)
     const [hasAccessToken, setHasAccessToken] = useState(false)
 
     return(
