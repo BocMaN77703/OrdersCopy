@@ -36,7 +36,7 @@ const Home = () => {
     axios.get(`${host}/getAllProducts`).then((res) => {
       setProducts(res.data);
     });
-  }, [products]);
+  }, []); 
 
   return (
     <div className="main-content">
