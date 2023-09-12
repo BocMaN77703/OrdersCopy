@@ -22,7 +22,7 @@ const Orders = () => {
             .then((res) => setOrders(res.data))
             .catch((err) => console.log(err));
       });
-  }, [orders]);
+  }, []);
 
   const confirmOrder = (orderId: number) => {
     axios.post(

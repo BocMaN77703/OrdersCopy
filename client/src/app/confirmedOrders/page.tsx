@@ -24,7 +24,7 @@ export default function ConfirmedOrders() {
             .then((res) => setOrders(res.data))
             .catch((err) => console.log(err));
       });
-  }, [orders]);
+  }, []);
   
   return (
     <>
