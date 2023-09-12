@@ -24,7 +24,7 @@ const page: FC = () => {
       .then((res) => {
         setProducts(res.data);
       });
-  }, [products]);
+  }, []);
 
   const incCount = (itemId: number, count: number) => {
     axios.put(`${host}/cart/updateItemCount`, {
