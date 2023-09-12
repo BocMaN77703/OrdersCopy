@@ -12,7 +12,6 @@ const Home = () => {
 
   const router = useRouter();
   const host = process.env.HOST;
-  const port = process.env.SERVER_PORT;
   const buyProduct = (itemId: number) => {
     if (cartId == 0) {
       axios.post(`${host}/cart/create`).then((res) => {
