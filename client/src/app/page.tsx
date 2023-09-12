@@ -5,17 +5,20 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FC, useEffect, useState } from "react";
 import { useGlobalContext } from "./context/store";
+import { cookies } from 'next/headers'
+import { useCookies } from "react-cookie";
 
 const Home = () => {
   const { cartId, setCartId } = useGlobalContext();
   const [products, setProducts] = useState<any[]>([]);
-
+  const [cookies, setCookie, removeCookie] = useCookies(["cartId"]);
   const router = useRouter();
   const host = process.env.HOST;
   const buyProduct = (itemId: number) => {
     if (cartId == 0) {
       axios.post(`${host}/cart/create`).then((res) => {
         setCartId(res.data.id);
+        setCookie("cartId", res.data.id, { path: '/'});
         axios.post(`${host}/cart/addProduct`, {
           cartId: res.data.id,
           itemId: itemId,
