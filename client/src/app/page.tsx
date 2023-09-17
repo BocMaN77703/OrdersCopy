@@ -1,18 +1,15 @@
 'use client'
-import axios from 'axios'
-import '../styles/css/style.css'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { FC, useEffect, useState } from 'react'
-import { useGlobalContext } from './context/store'
-import { cookies } from 'next/headers'
+
+import { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
+import axios from 'axios'
+import { useGlobalContext } from './context/store'
+import '../styles/css/style.css'
 
 const Home = () => {
     const { cartId, setCartId } = useGlobalContext()
     const [products, setProducts] = useState<any[]>([])
     const [cookies, setCookie, removeCookie] = useCookies(['cartId'])
-    const router = useRouter()
     const host = process.env.HOST
     const buyProduct = (itemId: number) => {
         if (cartId == 0) {
@@ -26,7 +23,7 @@ const Home = () => {
                 })
             })
         } else {
-            const res2 = axios.post(`${host}/cart/addProduct`, {
+            axios.post(`${host}/cart/addProduct`, {
                 cartId: cartId,
                 itemId: itemId,
                 count: 1,

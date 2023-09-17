@@ -1,13 +1,12 @@
 'use client'
+
+import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useRouter } from 'next/navigation'
-import { FC, useEffect, useState } from 'react'
-import '../../styles/css/style.css'
-import Link from 'next/link'
 import { useGlobalContext } from '@/app/context/store'
 import Modal from '../modal/modal'
+import '../../styles/css/style.css'
 
-const page: FC = () => {
+const page = () => {
     const { cartId, setCartId } = useGlobalContext()
     const [products, setProducts] = useState<any[]>([])
     const [modalActive, setModalActive] = useState(false)
@@ -16,7 +15,6 @@ const page: FC = () => {
     const [address, setAddress] = useState('')
 
     const host = process.env.HOST
-    const port = process.env.SERVER_PORT
 
     const getProducts = () => {
         axios.get(`${host}/cart/getProducts/${cartId}`).then((res) => {
@@ -78,7 +76,6 @@ const page: FC = () => {
         getProducts()
     }, [])
 
-    const router = useRouter()
     return (
         <>
             <div className="main-content">
