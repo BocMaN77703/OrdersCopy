@@ -1,62 +1,59 @@
 import {
-  Body,
-  Controller,
-  Get,
-  HttpException,
-  Param,
-  Post,
-  Req,
-  Res,
-} from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { request } from 'http';
+    Controller,
+    Get,
+    HttpException,
+    Param,
+    Post,
+    Req,
+} from '@nestjs/common'
+import { AuthService } from './auth.service'
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
-  @Post('login/:code')
-  async login(@Param('code') code: string, @Req() req) {
-    const res = await this.authService.validateUser(code);
-    if (!res) {
-      throw new HttpException('Incorrect code', 400);
+    constructor(private readonly authService: AuthService) {}
+    @Post('login/:code')
+    async login(@Param('code') code: string, @Req() req) {
+        const res = await this.authService.validateUser(code)
+        if (!res) {
+            throw new HttpException('Incorrect code', 400)
+        }
+        const accessTokenCookie = this.authService.getCookieWithJwtAccessToken(
+            res.id
+        )
+        const refreshTokenCookie =
+            this.authService.getCookieWithJwtRefreshToken(res.id)
+
+        req.res.setHeader('Set-Cookie', [
+            accessTokenCookie,
+            refreshTokenCookie.cookie,
+        ])
+
+        return true
     }
-    const accessTokenCookie =
-      this.authService.getCookieWithJwtAccessToken(res.id);
-    const refreshTokenCookie =
-      this.authService.getCookieWithJwtRefreshToken(res.id);
 
-    req.res.setHeader('Set-Cookie', [
-      accessTokenCookie,
-      refreshTokenCookie.cookie,
-    ]);
+    @Post('refresh')
+    refresh(@Req() request) {
+        const accessTokenCookie =
+            this.authService.getCookieWithJwtAccessToken(1)
+        request.res.setHeader('Set-Cookie', accessTokenCookie)
+    }
 
-    return true
-  }
+    @Get('checkTokens')
+    checkTokens(@Req() request) {
+        if (request.cookies.Refresh) return true
+        else return false
+    }
 
-  @Post('refresh')
-  refresh(@Req() request) {
-    const accessTokenCookie = this.authService.getCookieWithJwtAccessToken(
-      1
-    );
-    request.res.setHeader('Set-Cookie', accessTokenCookie);
-  }
+    @Post('create')
+    create() {
+        return this.authService.createUser()
+    }
 
-  @Get('checkTokens')
-  checkTokens(@Req() request) {
-    if (request.cookies.Refresh)
-      return true
-    else
-      return false
-  }
-
-  @Post('create')
-  create(){
-    return this.authService.createUser()
-  }
-
-  @Post('log-out')
-  async logOut(@Req() request) {
-    request.res.setHeader('Set-Cookie', this.authService.getCookiesForLogOut());
-  }
+    @Post('log-out')
+    async logOut(@Req() request) {
+        request.res.setHeader(
+            'Set-Cookie',
+            this.authService.getCookiesForLogOut()
+        )
+    }
 }
- 

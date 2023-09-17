@@ -1,14 +1,12 @@
-import { IsDate, IsNumber, IsString } from "class-validator";
+import { IsDate, IsNumber, IsString } from 'class-validator'
 
-export class orderDto{
+export class orderDto {
     @IsString()
-    name:string
-
-    @IsString()
-    last_name:string
+    name: string
 
     @IsString()
-    address:string
+    last_name: string
 
- 
+    @IsString()
+    address: string
 }
