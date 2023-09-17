@@ -46,6 +46,7 @@ const Home = () => {
                             className="main-item-image"
                             src={el.image}
                             alt="empty image"
+                            loading='lazy'
                         />
                         <div className="main-item-text-container">
                             <div className="main-item-name">
