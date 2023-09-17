@@ -2,27 +2,26 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
- 
-  .login-input {
-    font-family: Akshar;
-    font-weight: 400;
-    font-size: 20px;
-    border-radius: 12px;
-    height: 35px;
-  }
-  .login-btn {
-    font-family: Akshar;
-    font-weight: 600;
-    font-size: 22px;
-    border-radius: 12px;
-    height: 35px;
-  }
-  .log-out-question{
-    text-align: center;
-    font-family: Akshar;
-    font-weight: 400;
-    font-size: 20px;
-    height: 35px;
-  }
-}
 
+    .login-input {
+        font-family: Akshar;
+        font-weight: 400;
+        font-size: 20px;
+        border-radius: 12px;
+        height: 35px;
+    }
+    .login-btn {
+        font-family: Akshar;
+        font-weight: 600;
+        font-size: 22px;
+        border-radius: 12px;
+        height: 35px;
+    }
+    .log-out-question {
+        text-align: center;
+        font-family: Akshar;
+        font-weight: 400;
+        font-size: 20px;
+        height: 35px;
+    }
+}

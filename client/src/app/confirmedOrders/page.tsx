@@ -1,59 +1,69 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { useGlobalContext } from "../context/store";
-import axios from "axios";
-import "../../styles/css/style.css";
+'use client'
+import React, { useEffect, useState } from 'react'
+import { useGlobalContext } from '../context/store'
+import axios from 'axios'
+import '../../styles/css/style.css'
 
 export default function ConfirmedOrders() {
-  const [orders, setOrders] = useState([]);
-  const { hasAccessToken, setHasAccessToken } = useGlobalContext();
+    const [orders, setOrders] = useState([])
+    const { hasAccessToken, setHasAccessToken } = useGlobalContext()
 
-  const host = process.env.HOST;
-  const port = process.env.SERVER_PORT;
+    const host = process.env.HOST
+    const port = process.env.SERVER_PORT
 
-  useEffect(() => {
-    axios
-      .get(`${host}/auth/checkTokens`, { withCredentials: true })
-      .then((res) => {
-        setHasAccessToken(res.data);
-        if (res.data == true)
-          axios
-            .get(`${host}/orders/getConfirmedOrders`, {
-              withCredentials: true,
+    useEffect(() => {
+        axios
+            .get(`${host}/auth/checkTokens`, { withCredentials: true })
+            .then((res) => {
+                setHasAccessToken(res.data)
+                if (res.data == true)
+                    axios
+                        .get(`${host}/orders/getConfirmedOrders`, {
+                            withCredentials: true,
+                        })
+                        .then((res) => setOrders(res.data))
+                        .catch((err) => console.log(err))
             })
-            .then((res) => setOrders(res.data))
-            .catch((err) => console.log(err));
-      });
-  }, []);
-  
-  return (
-    <>
-      {hasAccessToken ? (
-        <div className="orders-container">
-          {orders.length != 0 ? (
-            orders.map((el: any) => {
-              return (
-                <div className="order-item" key={el.id}>
-                  <div className="order-info">
-                    <div className="order-text">Order id: {el.id}</div>
-                    <div className="order-text">
-                      Created at: {el.created_at}
-                    </div>
-                    <div className="order-text">Name: {el.name}</div>
-                    <div className="order-text">Last name: {el.last_name}</div>
-                    <div className="order-text">Address: {el.address}</div>
-                    <div className="order-text">Status: {el.status}</div>
-                  </div>
+    }, [])
+
+    return (
+        <>
+            {hasAccessToken ? (
+                <div className="orders-container">
+                    {orders.length != 0 ? (
+                        orders.map((el: any) => {
+                            return (
+                                <div className="order-item" key={el.id}>
+                                    <div className="order-info">
+                                        <div className="order-text">
+                                            Order id: {el.id}
+                                        </div>
+                                        <div className="order-text">
+                                            Created at: {el.created_at}
+                                        </div>
+                                        <div className="order-text">
+                                            Name: {el.name}
+                                        </div>
+                                        <div className="order-text">
+                                            Last name: {el.last_name}
+                                        </div>
+                                        <div className="order-text">
+                                            Address: {el.address}
+                                        </div>
+                                        <div className="order-text">
+                                            Status: {el.status}
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        })
+                    ) : (
+                        <p>There are no confirmed orders yet</p>
+                    )}
                 </div>
-              );
-            })
-          ) : (
-            <p>There are no confirmed orders yet</p>
-          )}
-        </div>
-      ) : (
-        <p>Login and refresh to see this page</p>
-      )}
-    </>
-  );
+            ) : (
+                <p>Login and refresh to see this page</p>
+            )}
+        </>
+    )
 }
