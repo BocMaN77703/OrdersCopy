@@ -106,13 +106,14 @@ h6 {
     }
     .main-content {
         height: 100%;
-        margin: 50px auto;
-        display: grid;
+        padding: 0 50px;
+        display: flex;
+        flex-wrap: wrap;
         gap: 70px;
-        grid-template-columns: repeat(5, 300px);
         .main-item {
             width: 100%;
-
+            flex-basis: calc(300px);
+          
             .main-item-image {
                 width: 100%;
                 height: 200px;

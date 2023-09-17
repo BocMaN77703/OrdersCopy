@@ -229,13 +229,14 @@ h6 {
 }
 .main-container .main-content {
   height: 100%;
-  margin: 50px auto;
-  display: grid;
+  padding: 0 50px;
+  display: flex;
+  flex-wrap: wrap;
   gap: 70px;
-  grid-template-columns: repeat(5, 300px);
 }
 .main-container .main-content .main-item {
   width: 100%;
+  flex-basis: 300px;
 }
 .main-container .main-content .main-item .main-item-image {
   width: 100%;
