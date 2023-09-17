@@ -1,27 +1,22 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { GetServerSidePropsContext } from 'next'
-import { useGlobalContext } from '../context/store'
 import axios from 'axios'
+import { useGlobalContext } from '../context/store'
 import '../../styles/css/style.css'
+
 const Orders = () => {
     const { hasAccessToken, setHasAccessToken } = useGlobalContext()
     const [orders, setOrders] = useState([])
     const host = process.env.HOST
     const port = process.env.SERVER_PORT
     useEffect(() => {
-        axios
-            .get(`${host}/auth/checkTokens`, { withCredentials: true })
-            .then((res) => {
-                setHasAccessToken(res.data)
-                if (res.data == true)
-                    axios
-                        .get(`${host}/orders/getInitializedOrders`, {
-                            withCredentials: true,
-                        })
-                        .then((res) => setOrders(res.data))
-                        .catch((err) => console.log(err))
-            })
+        if (hasAccessToken === true)
+            axios
+                .get(`${host}/orders/getInitializedOrders`, {
+                    withCredentials: true,
+                })
+                .then((res) => setOrders(res.data))
+                .catch((err) => console.log(err))
     }, [])
 
     const confirmOrder = (orderId: number) => {
