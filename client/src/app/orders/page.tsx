@@ -6,7 +6,7 @@ import '../../styles/css/style.css'
 
 const Orders = () => {
     const { hasAccessToken, setHasAccessToken } = useGlobalContext()
-    const [orders, setOrders] = useState([])
+    const [orders, setOrders] = useState<any[]>([])
     const host = process.env.HOST
     const port = process.env.SERVER_PORT
     useEffect(() => {
@@ -27,6 +27,8 @@ const Orders = () => {
                 withCredentials: true,
             }
         )
+        const newOrders = orders.filter((order) => order.id !== orderId)
+        setOrders(newOrders)
     }
 
     return (
