@@ -7,8 +7,10 @@ import {
     SetStateAction,
     useState,
     ReactNode,
+    useEffect,
 } from 'react'
 import { useCookies } from 'react-cookie'
+import axios from 'axios'
 
 interface ContextProps {
     cartId: number
@@ -34,6 +36,14 @@ export const GlobalContextProvider = ({
         cookies.cartId ? parseInt(cookies.cartId) : 0
     )
     const [hasAccessToken, setHasAccessToken] = useState(false)
+    const host = process.env.HOST
+    useEffect(() => {
+        axios
+            .get(`${host}/auth/checkTokens`, { withCredentials: true })
+            .then((res) => {
+                setHasAccessToken(res.data)
+            })
+    }, [])
 
     return (
         <GlobalContext.Provider
